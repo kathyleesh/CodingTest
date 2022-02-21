@@ -16,16 +16,16 @@
 각 테스트 케이스에 대해 필요한 최소의 배추흰지렁이 마리 수를 출력한다.
 
 todo :
-1) 
-2) 
-3) 
-4) 
+1) 가로길이 M과 세로길이 N, 배추가 심어져 있는 위치의 개수를 입력 받아 우선 0이 입력된 행렬을 만든다.
+2) k 개수 만큼의 입력된 좌표의 값을 1로 변경한다.
+3) dfs를 이용하여 인접한 부분을 찾아 필요한 최소의 배추 흰지렁이 마리수를 구한다.
+4) T 만큼 반복할 수 있게 한다.
 
 '''
 import sys
-sys.setrecursionlimit(10**9)
+sys.setrecursionlimit(10**9)                      # 런타임에러 해결(재귀함수 호출 범위 설정)
 
-def dfs (X,Y):
+def dfs (X,Y):                                    # dfs 알고리즘
     if X <= -1 or X >= N or Y <= -1 or Y >= M :
         return False
         
@@ -38,26 +38,25 @@ def dfs (X,Y):
         return True
     return False
 
-T = int(input())
+T = int(input())                                   
 result_list = []
 
-for _ in range(T):
-    M, N, K = map(int, input().split())
+for _ in range(T):                                  # 테스트 케이스의 개수 T 만큼 반복
+    M, N, K = map(int, input().split())             # 가로길이 M(1 ≤ M ≤ 50)과 세로길이 N(1 ≤ N ≤ 50), 그리고 배추가 심어져 있는 위치의 개수 K(1 ≤ K ≤ 2500)
 
-    graph = [[0]*M for _ in range(N)]
+    graph = [[0]*M for _ in range(N)]               # M X N 행렬 zero metrix
 
-    for _ in range(K):
+    for _ in range(K):                              # K개 만큼의 좌표에 1 대입
         Y,X = map(int, input().split())
         graph[X][Y] = 1
     
     result = 0
     
-    for i in range(N):
+    for i in range(N):                              # dfs(i,j) == True 이면 result += 1
         for j in range(M):
             if dfs(i, j) == True:
                 result += 1
-    result_list.append(result)
+    result_list.append(result)                      # 테스트를 T 번 반복하므로 result 값을 list 화
 
-print(result_list)
-for r in result_list:
-    print(r)
+for count in result_list:
+    print(count)
